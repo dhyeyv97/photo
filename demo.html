@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LightGallery Fullscreen and Download Example</title>
-
-    <!-- LightGallery CSS -->
+    <title>LightGallery Fullscreen Example</title>
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css"
     />
     <style>
-        /* Ensure the gallery container has proper styles */
         #lightgallery {
             display: flex;
             gap: 10px;
@@ -19,7 +16,6 @@
         }
         #lightgallery a {
             width: 30%;
-            display: block;
         }
         #lightgallery img {
             width: 100%;
@@ -29,46 +25,47 @@
     </style>
 </head>
 <body>
-    <h1>LightGallery Fullscreen and Download Example</h1>
+    <h1>Fullscreen Debugging Example</h1>
     <div id="lightgallery">
         <a href="https://via.placeholder.com/800x600.png?text=Image+1">
-            <img src="https://via.placeholder.com/200x150.png?text=Image+1" alt="Thumbnail 1">
+            <img src="https://via.placeholder.com/200x150.png?text=Image+1" alt="Image 1">
         </a>
         <a href="https://via.placeholder.com/800x600.png?text=Image+2">
-            <img src="https://via.placeholder.com/200x150.png?text=Image+2" alt="Thumbnail 2">
+            <img src="https://via.placeholder.com/200x150.png?text=Image+2" alt="Image 2">
         </a>
         <a href="https://via.placeholder.com/800x600.png?text=Image+3">
-            <img src="https://via.placeholder.com/200x150.png?text=Image+3" alt="Thumbnail 3">
+            <img src="https://via.placeholder.com/200x150.png?text=Image+3" alt="Image 3">
         </a>
     </div>
 
-    <!-- LightGallery Core JS -->
     <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.min.js"></script>
-
-    <!-- LightGallery Fullscreen Plugin -->
     <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/fullscreen/lg-fullscreen.min.js"></script>
-
     <script>
-        // Initialize LightGallery
-        lightGallery(document.getElementById('lightgallery'), {
-            plugins: [lgFullscreen], // Include the fullscreen plugin
-            selector: 'a', // Target all anchor tags inside the gallery container
-            mode: 'lg-fade', // Animation mode
-            controls: true, // Enable toolbar controls
-            showCloseIcon: true, // Display the close icon
-            appendSubHtmlTo: '.lg-item', // Attach captions to the slides
-            download: true, // Enable the download button
-            mobileSettings: {
-                controls: true, // Show toolbar controls on mobile
-                showCloseIcon: true, // Display the close icon
-                download: true, // Enable the download button
-                fullscreen: true, // Enable fullscreen for mobile
-            },
-            getCaptionFromTitleOrAlt: true, // Add captions using image title/alt
-            toolbar: {
-                fullscreen: true, // Enable fullscreen button
-                download: true, // Enable download button
-            },
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize LightGallery
+            const gallery = lightGallery(document.getElementById('lightgallery'), {
+                plugins: [lgFullscreen], // Enable fullscreen plugin
+                selector: 'a', // Target all links
+                mode: 'lg-fade', // Transition effect
+                controls: true, // Show toolbar
+                mobileSettings: {
+                    controls: true,
+                    showCloseIcon: true,
+                    download: true,
+                    fullscreen: true, // Ensure fullscreen is enabled for mobile
+                },
+                toolbar: {
+                    download: true, // Enable download button
+                    fullscreen: true, // Enable fullscreen button
+                },
+            });
+
+            // Debugging: Check if fullscreen plugin is loaded
+            if (gallery.settings.plugins.includes(lgFullscreen)) {
+                console.log('Fullscreen plugin loaded successfully.');
+            } else {
+                console.error('Fullscreen plugin failed to load.');
+            }
         });
     </script>
 </body>
