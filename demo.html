@@ -22,10 +22,19 @@
             border-radius: 8px;
             cursor: pointer;
         }
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            #lightgallery a {
+                width: 100%;
+            }
+            .lg-zoom-in, .lg-fullscreen {
+                display: block !important; /* Force fullscreen button to show */
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Fullscreen Debugging Example</h1>
+    <h1>Fullscreen Debugging Example mob</h1>
     <div id="lightgallery">
         <a href="https://via.placeholder.com/800x600.png?text=Image+1">
             <img src="https://via.placeholder.com/200x150.png?text=Image+1" alt="Image 1">
@@ -65,6 +74,21 @@
                 console.log('Fullscreen plugin loaded successfully.');
             } else {
                 console.error('Fullscreen plugin failed to load.');
+            }
+
+            // Manually trigger fullscreen for mobile (when clicking the fullscreen button)
+            const fullscreenButton = document.querySelector('.lg-fullscreen');
+            if (fullscreenButton) {
+                fullscreenButton.addEventListener('click', () => {
+                    const lightboxElement = document.querySelector('.lg-outer');
+                    if (lightboxElement.requestFullscreen) {
+                        lightboxElement.requestFullscreen();
+                    } else if (lightboxElement.mozRequestFullScreen) { // Firefox
+                        lightboxElement.mozRequestFullScreen();
+                    } else if (lightboxElement.webkitRequestFullscreen) { // Chrome and Safari
+                        lightboxElement.webkitRequestFullscreen();
+                    }
+                });
             }
         });
     </script>
