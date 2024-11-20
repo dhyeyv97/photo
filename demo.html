@@ -34,7 +34,7 @@
     </style>
 </head>
 <body>
-    <h1>Fullscreen Debugging Example mob</h1>
+    <h1>Fullscreen Debugging Example IOS</h1>
     <div id="lightgallery">
         <a href="https://via.placeholder.com/800x600.png?text=Image+1">
             <img src="https://via.placeholder.com/200x150.png?text=Image+1" alt="Image 1">
@@ -69,11 +69,9 @@
                 },
             });
 
-            // Debugging: Check if fullscreen plugin is loaded
-            if (gallery.settings.plugins.includes(lgFullscreen)) {
-                console.log('Fullscreen plugin loaded successfully.');
-            } else {
-                console.error('Fullscreen plugin failed to load.');
+            // Detect iOS device
+            function isIOS() {
+                return /iPhone|iPad|iPod/i.test(navigator.userAgent);
             }
 
             // Manually trigger fullscreen for mobile (when clicking the fullscreen button)
@@ -81,12 +79,23 @@
             if (fullscreenButton) {
                 fullscreenButton.addEventListener('click', () => {
                     const lightboxElement = document.querySelector('.lg-outer');
-                    if (lightboxElement.requestFullscreen) {
-                        lightboxElement.requestFullscreen();
-                    } else if (lightboxElement.mozRequestFullScreen) { // Firefox
-                        lightboxElement.mozRequestFullScreen();
-                    } else if (lightboxElement.webkitRequestFullscreen) { // Chrome and Safari
-                        lightboxElement.webkitRequestFullscreen();
+                    
+                    if (isIOS()) {
+                        // iOS fullscreen workaround using webkitRequestFullscreen
+                        if (lightboxElement.webkitRequestFullscreen) {
+                            lightboxElement.webkitRequestFullscreen();
+                        } else {
+                            alert("Fullscreen not supported on your iOS device");
+                        }
+                    } else {
+                        // Standard fullscreen for other devices
+                        if (lightboxElement.requestFullscreen) {
+                            lightboxElement.requestFullscreen();
+                        } else if (lightboxElement.mozRequestFullScreen) { // Firefox
+                            lightboxElement.mozRequestFullScreen();
+                        } else if (lightboxElement.webkitRequestFullscreen) { // Chrome and Safari
+                            lightboxElement.webkitRequestFullscreen();
+                        }
                     }
                 });
             }
