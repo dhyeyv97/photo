@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LightGallery Fullscreen Example</title>
+    <title>Fullscreen Lightbox Example</title>
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css"
@@ -34,7 +34,7 @@
     </style>
 </head>
 <body>
-    <h1>Fullscreen Debugging Example IOS</h1>
+    <h1>Fullscreen Example on iOS</h1>
     <div id="lightgallery">
         <a href="https://via.placeholder.com/800x600.png?text=Image+1">
             <img src="https://via.placeholder.com/200x150.png?text=Image+1" alt="Image 1">
@@ -74,31 +74,36 @@
                 return /iPhone|iPad|iPod/i.test(navigator.userAgent);
             }
 
-            // Manually trigger fullscreen for mobile (when clicking the fullscreen button)
-            const fullscreenButton = document.querySelector('.lg-fullscreen');
-            if (fullscreenButton) {
-                fullscreenButton.addEventListener('click', () => {
-                    const lightboxElement = document.querySelector('.lg-outer');
-                    
-                    if (isIOS()) {
-                        // iOS fullscreen workaround using webkitRequestFullscreen
-                        if (lightboxElement.webkitRequestFullscreen) {
-                            lightboxElement.webkitRequestFullscreen();
+            // Fullscreen Function for iOS
+            function handleFullscreenForIOS() {
+                const fullscreenButton = document.querySelector('.lg-fullscreen');
+                if (fullscreenButton) {
+                    fullscreenButton.addEventListener('click', () => {
+                        const lightboxElement = document.querySelector('.lg-outer');
+                        
+                        if (isIOS()) {
+                            // iOS-specific fullscreen (webkitRequestFullscreen)
+                            if (lightboxElement.webkitRequestFullscreen) {
+                                lightboxElement.webkitRequestFullscreen();
+                            } else {
+                                alert("Fullscreen not supported on your iOS device");
+                            }
                         } else {
-                            alert("Fullscreen not supported on your iOS device");
+                            // Standard fullscreen for non-iOS devices
+                            if (lightboxElement.requestFullscreen) {
+                                lightboxElement.requestFullscreen();
+                            } else if (lightboxElement.mozRequestFullScreen) { // Firefox
+                                lightboxElement.mozRequestFullScreen();
+                            } else if (lightboxElement.webkitRequestFullscreen) { // Chrome, Safari
+                                lightboxElement.webkitRequestFullscreen();
+                            }
                         }
-                    } else {
-                        // Standard fullscreen for other devices
-                        if (lightboxElement.requestFullscreen) {
-                            lightboxElement.requestFullscreen();
-                        } else if (lightboxElement.mozRequestFullScreen) { // Firefox
-                            lightboxElement.mozRequestFullScreen();
-                        } else if (lightboxElement.webkitRequestFullscreen) { // Chrome and Safari
-                            lightboxElement.webkitRequestFullscreen();
-                        }
-                    }
-                });
+                    });
+                }
             }
+
+            // Call the fullscreen handling function
+            handleFullscreenForIOS();
         });
     </script>
 </body>
