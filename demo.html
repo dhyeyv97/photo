@@ -74,6 +74,11 @@
                 return /iPhone|iPad|iPod/i.test(navigator.userAgent);
             }
 
+            // Detect Chrome on iOS
+            function isChrome() {
+                return /CriOS/i.test(navigator.userAgent);
+            }
+
             // Fullscreen Function for iOS
             function handleFullscreenForIOS() {
                 const fullscreenButton = document.querySelector('.lg-fullscreen');
@@ -82,11 +87,15 @@
                         const lightboxElement = document.querySelector('.lg-outer');
                         
                         if (isIOS()) {
-                            // iOS-specific fullscreen (webkitRequestFullscreen)
-                            if (lightboxElement.webkitRequestFullscreen) {
-                                lightboxElement.webkitRequestFullscreen();
+                            if (isChrome()) {
+                                alert("Fullscreen is not supported in Chrome on iOS. Please use Safari.");
                             } else {
-                                alert("Fullscreen not supported on your iOS device");
+                                // iOS Safari-specific fullscreen (webkitRequestFullscreen)
+                                if (lightboxElement.webkitRequestFullscreen) {
+                                    lightboxElement.webkitRequestFullscreen();
+                                } else {
+                                    alert("Fullscreen is not supported in this browser.");
+                                }
                             }
                         } else {
                             // Standard fullscreen for non-iOS devices
