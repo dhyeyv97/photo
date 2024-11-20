@@ -31,7 +31,7 @@
     </style>
 </head>
 <body>
-    <h1>Fullscreen Example on iOS</h1>
+    <h1>Fullscreen Example on iOS1</h1>
     <div id="lightgallery">
         <a href="https://via.placeholder.com/800x600.png?text=Image+1">
             <img src="https://via.placeholder.com/200x150.png?text=Image+1" alt="Image 1">
@@ -71,28 +71,30 @@
                 return /iPhone|iPad|iPod/i.test(navigator.userAgent);
             }
 
-            // Fullscreen Function for iOS
-            function handleFullscreenForIOS() {
+            // Fullscreen function for mobile devices (including iOS)
+            function handleFullscreen() {
                 const fullscreenButton = document.querySelector('.lg-fullscreen');
                 if (fullscreenButton) {
                     fullscreenButton.addEventListener('click', () => {
                         const lightboxElement = document.querySelector('.lg-outer');
-                        
+
+                        // For iOS Safari: using webkitRequestFullscreen
                         if (isIOS()) {
-                            // iOS Safari-specific fullscreen (webkitRequestFullscreen)
                             if (lightboxElement.webkitRequestFullscreen) {
                                 lightboxElement.webkitRequestFullscreen();
                             } else {
                                 alert("Fullscreen is not supported in this browser.");
                             }
                         } else {
-                            // Standard fullscreen for non-iOS devices
+                            // For non-iOS browsers, use standard fullscreen
                             if (lightboxElement.requestFullscreen) {
                                 lightboxElement.requestFullscreen();
                             } else if (lightboxElement.mozRequestFullScreen) { // Firefox
                                 lightboxElement.mozRequestFullScreen();
                             } else if (lightboxElement.webkitRequestFullscreen) { // Chrome, Safari
                                 lightboxElement.webkitRequestFullscreen();
+                            } else {
+                                alert("Fullscreen is not supported in this browser.");
                             }
                         }
                     });
@@ -100,7 +102,7 @@
             }
 
             // Call the fullscreen handling function
-            handleFullscreenForIOS();
+            handleFullscreen();
         });
     </script>
 </body>
