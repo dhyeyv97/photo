@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fullscreen Lightbox Example</title>
+    <title>Fullscreen Image Gallery</title>
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css"
@@ -31,7 +31,7 @@
     </style>
 </head>
 <body>
-    <h1>Fullscreen Example on iOS1</h1>
+    <h1>Fullscreen Image Gallery</h1>
     <div id="lightgallery">
         <a href="https://via.placeholder.com/800x600.png?text=Image+1">
             <img src="https://via.placeholder.com/200x150.png?text=Image+1" alt="Image 1">
@@ -48,61 +48,56 @@
     <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/fullscreen/lg-fullscreen.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Initialize LightGallery
             const gallery = lightGallery(document.getElementById('lightgallery'), {
-                plugins: [lgFullscreen], // Enable fullscreen plugin
-                selector: 'a', // Target all links
-                mode: 'lg-fade', // Transition effect
-                controls: true, // Show toolbar
+                plugins: [lgFullscreen],
+                selector: 'a',
+                mode: 'lg-fade',
+                controls: true,
+                download: true,
                 mobileSettings: {
                     controls: true,
                     showCloseIcon: true,
                     download: true,
-                    fullscreen: true, // Ensure fullscreen is enabled for mobile
+                    fullscreen: true,
                 },
                 toolbar: {
-                    download: true, // Enable download button
-                    fullscreen: true, // Enable fullscreen button
+                    download: true,
+                    fullscreen: true,
                 },
             });
 
-            // Detect iOS device
+            // Detect if the browser is iOS Safari
             function isIOS() {
                 return /iPhone|iPad|iPod/i.test(navigator.userAgent);
             }
 
-            // Fullscreen function for mobile devices (including iOS)
-            function handleFullscreen() {
-                const fullscreenButton = document.querySelector('.lg-fullscreen');
-                if (fullscreenButton) {
-                    fullscreenButton.addEventListener('click', () => {
-                        const lightboxElement = document.querySelector('.lg-outer');
+            // Fullscreen handling for mobile and desktop
+            const fullscreenButton = document.querySelector('.lg-fullscreen');
+            if (fullscreenButton) {
+                fullscreenButton.addEventListener('click', () => {
+                    const lightboxElement = document.querySelector('.lg-outer');
 
-                        // For iOS Safari: using webkitRequestFullscreen
-                        if (isIOS()) {
-                            if (lightboxElement.webkitRequestFullscreen) {
-                                lightboxElement.webkitRequestFullscreen();
-                            } else {
-                                alert("Fullscreen is not supported in this browser.");
-                            }
+                    if (isIOS()) {
+                        // For iOS devices, we try to use webkitRequestFullscreen
+                        if (lightboxElement.webkitRequestFullscreen) {
+                            lightboxElement.webkitRequestFullscreen();
                         } else {
-                            // For non-iOS browsers, use standard fullscreen
-                            if (lightboxElement.requestFullscreen) {
-                                lightboxElement.requestFullscreen();
-                            } else if (lightboxElement.mozRequestFullScreen) { // Firefox
-                                lightboxElement.mozRequestFullScreen();
-                            } else if (lightboxElement.webkitRequestFullscreen) { // Chrome, Safari
-                                lightboxElement.webkitRequestFullscreen();
-                            } else {
-                                alert("Fullscreen is not supported in this browser.");
-                            }
+                            alert("Fullscreen is not supported on this device.");
                         }
-                    });
-                }
+                    } else {
+                        // For non-iOS devices, use standard fullscreen
+                        if (lightboxElement.requestFullscreen) {
+                            lightboxElement.requestFullscreen();
+                        } else if (lightboxElement.mozRequestFullScreen) {
+                            lightboxElement.mozRequestFullScreen();
+                        } else if (lightboxElement.webkitRequestFullscreen) {
+                            lightboxElement.webkitRequestFullscreen();
+                        } else {
+                            alert("Fullscreen is not supported in this browser.");
+                        }
+                    }
+                });
             }
-
-            // Call the fullscreen handling function
-            handleFullscreen();
         });
     </script>
 </body>
