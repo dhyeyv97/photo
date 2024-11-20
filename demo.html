@@ -51,22 +51,23 @@
     <script>
         // Initialize LightGallery
         lightGallery(document.getElementById('lightgallery'), {
-            plugins: [lgFullscreen], // Load the fullscreen plugin
+            plugins: [lgFullscreen], // Include the fullscreen plugin
             selector: 'a', // Target all anchor tags inside the gallery container
             mode: 'lg-fade', // Animation mode
             controls: true, // Enable toolbar controls
             showCloseIcon: true, // Display the close icon
             appendSubHtmlTo: '.lg-item', // Attach captions to the slides
             download: true, // Enable the download button
-            toolbar: {
-                fullscreen: true, // Enable the fullscreen button
-                download: true, // Enable the download button
-            },
             mobileSettings: {
                 controls: true, // Show toolbar controls on mobile
                 showCloseIcon: true, // Display the close icon
-                download: true, // Allow download option
-                fullscreen: true, // Ensure fullscreen option is available
+                download: true, // Enable the download button
+                fullscreen: true, // Enable fullscreen for mobile
+            },
+            getCaptionFromTitleOrAlt: true, // Add captions using image title/alt
+            toolbar: {
+                fullscreen: true, // Enable fullscreen button
+                download: true, // Enable download button
             },
         });
     </script>
