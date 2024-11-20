@@ -4707,3 +4707,6 @@ header>nav>ul>li:not(.mega-menu) li:last-child a {
     display: block;
     margin: auto;
 }
+.lg-toolbar .lg-zoom {
+            display: block !important; /* Ensure zoom icon stays visible */
+        }
