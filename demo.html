@@ -29,23 +29,17 @@
     </style>
 </head>
 <body>
-    <h1>LightGallery Fullscreen Example</h1>
+    <h1>LightGallery Fullscreen Button Example</h1>
     <div id="lightgallery">
-        <a class="col-lg-4 col-md-6 p-3" href="images/drawing/img18.jpeg">
-            <img src="images/drawing/img18.jpeg" alt="ttt11" class="img-fluid">
+        <a href="https://via.placeholder.com/800x600.png?text=Image+1">
+            <img src="https://via.placeholder.com/200x150.png?text=Image+1" alt="Thumbnail 1">
         </a>
-
-
-         <a class="col-lg-4 col-md-6 p-3" href="images/drawing/img17.jpeg" class="popup-image">
-            <img src="images/drawing/img17.jpeg" alt="ttt1w1" class="img-fluid">
+        <a href="https://via.placeholder.com/800x600.png?text=Image+2">
+            <img src="https://via.placeholder.com/200x150.png?text=Image+2" alt="Thumbnail 2">
         </a>
-
-
-
-         <a class="col-lg-4 col-md-6 p-3" href="images/drawing/img17.jpeg" class="popup-image">
-            <img src="images/drawing/img17.jpeg" alt="ttt11ee" class="img-fluid">
+        <a href="https://via.placeholder.com/800x600.png?text=Image+3">
+            <img src="https://via.placeholder.com/200x150.png?text=Image+3" alt="Thumbnail 3">
         </a>
-
     </div>
 
     <!-- LightGallery Core JS -->
@@ -61,11 +55,16 @@
             selector: 'a', // Target all anchor tags inside the gallery container
             mode: 'lg-fade', // Animation mode
             download: false, // Disable the download button
+            controls: true, // Enable toolbar controls
+            showCloseIcon: true, // Display the close icon
+            appendSubHtmlTo: '.lg-item', // Attach captions to the slides
             mobileSettings: {
                 controls: true, // Show toolbar controls on mobile
                 showCloseIcon: true, // Display the close icon
                 download: true, // Allow download option
-            lgFullscreen:tue,
+            },
+            toolbar: {
+                fullscreen: true, // Add fullscreen button
             },
         });
     </script>
