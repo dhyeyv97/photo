@@ -3,94 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fullscreen Image Gallery</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css">
+    <title>Fancybox Gallery</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
     <style>
-        #lightgallery {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+        /* Custom styles for gallery */
+        #gallery a {
+            margin: 10px;
+            display: inline-block;
         }
-        #lightgallery a {
-            width: 30%;
-        }
-        #lightgallery img {
-            width: 100%;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-        /* Mobile adjustments */
-        @media (max-width: 768px) {
-            #lightgallery a {
-                width: 100%;
-            }
+        #gallery img {
+            max-width: 100%;
+            height: auto;
         }
     </style>
 </head>
 <body>
-    <h1>Fullscreen Image Gallersy</h1>
-    <div id="lightgallery">
-        <a href="https://via.placeholder.com/800x600.png?text=Image+1">
+
+    <div id="gallery">
+        <a href="https://via.placeholder.com/800x600.png?text=Image+1" data-fancybox="gallery">
             <img src="https://via.placeholder.com/200x150.png?text=Image+1" alt="Image 1">
         </a>
-        <a href="https://via.placeholder.com/800x600.png?text=Image+2">
+        <a href="https://via.placeholder.com/800x600.png?text=Image+2" data-fancybox="gallery">
             <img src="https://via.placeholder.com/200x150.png?text=Image+2" alt="Image 2">
         </a>
-        <a href="https://via.placeholder.com/800x600.png?text=Image+3">
+        <a href="https://via.placeholder.com/800x600.png?text=Image+3" data-fancybox="gallery">
             <img src="https://via.placeholder.com/200x150.png?text=Image+3" alt="Image 3">
         </a>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/fullscreen/lg-fullscreen.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const gallery = lightGallery(document.getElementById('lightgallery'), {
-                plugins: [lgFullscreen],
-                selector: 'a',
-                mode: 'lg-fade',
-                controls: true,
-                download: true,
-                mobileSettings: {
-                    controls: true,
-                    showCloseIcon: true,
-                    download: true,
-                    fullscreen: true,
-                },
-                toolbar: {
-                    download: true,
-                    fullscreen: true,
-                },
-            });
-
-            // Fullscreen functionality for iOS
-            const fullscreenButton = document.querySelector('.lg-fullscreen');
-            if (fullscreenButton) {
-                fullscreenButton.addEventListener('click', function () {
-                    const lightboxElement = document.querySelector('.lg-outer');
-
-                    if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
-                        // iOS fullscreen workaround
-                        if (lightboxElement.webkitRequestFullscreen) {
-                            lightboxElement.webkitRequestFullscreen();
-                        } else {
-                            alert("Fullscreen is not supported on this device.");
-                        }
-                    } else {
-                        // For non-iOS devices (Desktop, Android)
-                        if (lightboxElement.requestFullscreen) {
-                            lightboxElement.requestFullscreen();
-                        } else if (lightboxElement.mozRequestFullScreen) {
-                            lightboxElement.mozRequestFullScreen();
-                        } else if (lightboxElement.webkitRequestFullscreen) {
-                            lightboxElement.webkitRequestFullscreen();
-                        } else {
-                            alert("Fullscreen is not supported in this browser.");
-                        }
-                    }
-                });
+        $("[data-fancybox='gallery']").fancybox({
+            buttons: [
+                "zoom",
+                "slideShow",
+                "fullScreen", // Fullscreen button
+                "share",
+                "download", // Download button
+                "close"
+            ],
+            touch: {
+                vertical: true
             }
         });
     </script>
+
 </body>
 </html>
