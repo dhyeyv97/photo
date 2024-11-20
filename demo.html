@@ -27,14 +27,11 @@
             #lightgallery a {
                 width: 100%;
             }
-            .lg-zoom-in, .lg-fullscreen {
-                display: block !important; /* Force fullscreen button to show */
-            }
         }
     </style>
 </head>
 <body>
-    <h1>Fullscreen Example on iOSss</h1>
+    <h1>Fullscreen Example on iOS</h1>
     <div id="lightgallery">
         <a href="https://via.placeholder.com/800x600.png?text=Image+1">
             <img src="https://via.placeholder.com/200x150.png?text=Image+1" alt="Image 1">
@@ -74,11 +71,6 @@
                 return /iPhone|iPad|iPod/i.test(navigator.userAgent);
             }
 
-            // Detect Chrome on iOS
-            function isChrome() {
-                return /CriOS/i.test(navigator.userAgent);
-            }
-
             // Fullscreen Function for iOS
             function handleFullscreenForIOS() {
                 const fullscreenButton = document.querySelector('.lg-fullscreen');
@@ -87,15 +79,11 @@
                         const lightboxElement = document.querySelector('.lg-outer');
                         
                         if (isIOS()) {
-                            if (isChrome()) {
-                                alert("Fullscreen is not supported in Chrome on iOS. Please use Safari.");
+                            // iOS Safari-specific fullscreen (webkitRequestFullscreen)
+                            if (lightboxElement.webkitRequestFullscreen) {
+                                lightboxElement.webkitRequestFullscreen();
                             } else {
-                                // iOS Safari-specific fullscreen (webkitRequestFullscreen)
-                                if (lightboxElement.webkitRequestFullscreen) {
-                                    lightboxElement.webkitRequestFullscreen();
-                                } else {
-                                    alert("Fullscreen is not supported in this browser.");
-                                }
+                                alert("Fullscreen is not supported in this browser.");
                             }
                         } else {
                             // Standard fullscreen for non-iOS devices
