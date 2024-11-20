@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LightGallery Fullscreen Example</title>
+    <title>LightGallery Fullscreen and Download Example</title>
 
     <!-- LightGallery CSS -->
     <link
@@ -29,7 +29,7 @@
     </style>
 </head>
 <body>
-    <h1>LightGallery Fullscreen Button Example</h1>
+    <h1>LightGallery Fullscreen and Download Example</h1>
     <div id="lightgallery">
         <a href="https://via.placeholder.com/800x600.png?text=Image+1">
             <img src="https://via.placeholder.com/200x150.png?text=Image+1" alt="Thumbnail 1">
@@ -54,17 +54,19 @@
             plugins: [lgFullscreen], // Load the fullscreen plugin
             selector: 'a', // Target all anchor tags inside the gallery container
             mode: 'lg-fade', // Animation mode
-            download: false, // Disable the download button
             controls: true, // Enable toolbar controls
             showCloseIcon: true, // Display the close icon
             appendSubHtmlTo: '.lg-item', // Attach captions to the slides
+            download: true, // Enable the download button
+            toolbar: {
+                fullscreen: true, // Enable the fullscreen button
+                download: true, // Enable the download button
+            },
             mobileSettings: {
                 controls: true, // Show toolbar controls on mobile
                 showCloseIcon: true, // Display the close icon
                 download: true, // Allow download option
-            },
-            toolbar: {
-                fullscreen: true, // Add fullscreen button
+                fullscreen: true, // Ensure fullscreen option is available
             },
         });
     </script>
